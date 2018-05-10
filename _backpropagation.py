@@ -1,5 +1,21 @@
 import numpy as np
 
+num_ejercicio = 0
+while (int(num_ejercicio)<1 or int(num_ejercicio)>2):
+	print("\n----- Algoritmo Backpropagation -----")
+	print("\nSeleccione el ejercicio para el cálculo de pesos y bias")
+	print(" 1) Ejercicio 1\n 2) Ejercicio 2")
+	num_ejercicio = input("\nNúmero de ejercicio: ")
+
+	while not num_ejercicio.isdigit():
+		num_ejercicio = input("\nLa entrada debe ser un número: ")
+
+	if int(num_ejercicio) == 1:
+		print("\n----- Ejercicio 1 -----\n")
+	elif int(num_ejercicio) == 2:
+		print("\n----- Ejercicio 2 -----\n")
+
+
 def funcionAproximar(p):
 	return (1 + np.sin((np.pi/4)*p))
 
@@ -31,7 +47,7 @@ bias1 = np.array([[-0.48,-0.13]])
 #Bias de capa oculta a salida
 bias2 = np.array([[0.48]])
 
-z2 = 0.0
+a1 = 0.0
 
 def logSigmoide(n):
 	return 1/(1+np.exp(-n))
@@ -75,7 +91,7 @@ def iniciarAlgoritmo(p,t):
     a = forward(p)
     backward(p,t,a)
 
-iteraciones_max = 1000
+iteraciones_max = 1
 
 print("Entrada: \n" + str(p))
 print("Salida esperada: \n" + str(t))
