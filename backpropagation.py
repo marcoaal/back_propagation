@@ -1,4 +1,12 @@
+'''
+	Algoritmo Backpropagation
+	- Aguilar Licona Marco Antonio
+	- Cortes Abraham
+	FI,UNAM
+'''
+
 import numpy as np
+import matplotlib.pyplot as plt
 
 def logSigmoide(n):
 	return 1/(1+np.exp(-n))
@@ -26,8 +34,14 @@ def backward(p,t,a):
 	global bias1
 	global bias2
 	global aproximacion_exitosa
+	global lista_errores
+	global lista_salidas
 
 	a_error = t - a
+
+	lista_salidas.append(a[0][0])
+	lista_errores.append(a_error[0][0])
+	lista_targets.append(t[0])
 
 	if a_error[0][0] == 0.0:
 		aproximacion_exitosa = True
@@ -70,6 +84,10 @@ while (int(num_ejercicio)<1 or int(num_ejercicio)>2):
 		t = np.array(([g]), dtype=float)
 
 		aproximacion_exitosa = False
+		lista_errores = []
+		lista_salidas = []
+		lista_targets = []
+		lista_iteraciones = []
 
 		numEntradas = 1
 		numSalidas = 1
@@ -89,6 +107,7 @@ while (int(num_ejercicio)<1 or int(num_ejercicio)>2):
 		while(aproximacion_exitosa !=True and iteraciones < iteraciones_max):	
 			iniciarAlgoritmo(p,t)
 			iteraciones = iteraciones + 1
+			lista_iteraciones.append(iteraciones)
 		print("No. de iteraciones para aproximacion exitosa: "+str(iteraciones))
 		print("W1: \n" + str(W1))
 		print("bias1: \n" + str(bias1))
@@ -96,6 +115,25 @@ while (int(num_ejercicio)<1 or int(num_ejercicio)>2):
 		print("W2: \n" + str(W2))
 		print("bias2: \n" + str(bias2))
 
+		plt.figure(1)
+		plt.plot(lista_iteraciones,lista_salidas,'r',lista_iteraciones,lista_targets,'g')
+		plt.ylabel("Salidas de la red")
+		plt.xlabel("Iteraciones")
+		plt.title("Comparación de función objetivo con respecto a salidas de neurona")
+		
+		plt.figure(2)
+		plt.plot(lista_iteraciones,lista_errores)
+		plt.ylabel("Error")
+		plt.xlabel("Iteraciones")
+		plt.title("Comportamiento de los errores en el algoritmo")
+
+		plt.figure(3)
+		plt.plot(lista_iteraciones[0:2],lista_salidas[0:2],'rs',lista_iteraciones[0:2],lista_targets[0:2],'gs')
+		plt.ylabel("Salidas de la red")
+		plt.xlabel("Iteraciones")
+		plt.title("Comparación de función objetivo con respecto a salidas de neurona en \n2 iteraciones")
+		
+		plt.show()
 	elif int(num_ejercicio) == 2:
 		print("\n----- Ejercicio 2 -----\n")
 		p = np.array(([1]), dtype=float)
@@ -107,6 +145,10 @@ while (int(num_ejercicio)<1 or int(num_ejercicio)>2):
 
 		print("\n----- Inciso a -----")
 		aproximacion_exitosa = False
+		lista_errores = []
+		lista_salidas = []
+		lista_targets = []
+		lista_iteraciones = []
 		numEntradas = 1
 		numSalidas = 1
 		numOcultas = 2
@@ -123,6 +165,7 @@ while (int(num_ejercicio)<1 or int(num_ejercicio)>2):
 		while(aproximacion_exitosa !=True and iteraciones < iteraciones_max):	
 			iniciarAlgoritmo(p,t)
 			iteraciones = iteraciones + 1
+			lista_iteraciones.append(iteraciones)
 		print("No. de iteraciones para aproximacion exitosa: "+str(iteraciones))
 		print("W1: \n" + str(W1))
 		print("bias1: \n" + str(bias1))
@@ -132,6 +175,10 @@ while (int(num_ejercicio)<1 or int(num_ejercicio)>2):
 
 		print("\n----- Inciso b -----")
 		aproximacion_exitosa = False
+		lista_errores = []
+		lista_salidas = []
+		lista_targets = []
+		lista_iteraciones = []
 		numEntradas = 1
 		numSalidas = 1
 		numOcultas = 2
@@ -146,6 +193,7 @@ while (int(num_ejercicio)<1 or int(num_ejercicio)>2):
 		while(aproximacion_exitosa !=True and iteraciones < iteraciones_max):	
 			iniciarAlgoritmo(p,t)
 			iteraciones = iteraciones + 1
+			lista_iteraciones.append(iteraciones)
 		print("No. de iteraciones para aproximacion exitosa: "+str(iteraciones))
 		print("W1: \n" + str(W1))
 		print("bias1: \n" + str(bias1))
@@ -155,6 +203,10 @@ while (int(num_ejercicio)<1 or int(num_ejercicio)>2):
 
 		print("\n----- Inciso c -----")
 		aproximacion_exitosa = False
+		lista_errores = []
+		lista_salidas = []
+		lista_targets = []
+		lista_iteraciones = []
 		numEntradas = 1
 		numSalidas = 1
 		numOcultas = 10
@@ -170,6 +222,7 @@ while (int(num_ejercicio)<1 or int(num_ejercicio)>2):
 		while(aproximacion_exitosa !=True and iteraciones < iteraciones_max):	
 			iniciarAlgoritmo(p,t)
 			iteraciones = iteraciones + 1
+			lista_iteraciones.append(iteraciones)
 		print("No. de iteraciones para aproximacion exitosa: "+str(iteraciones))
 		print("W1: \n" + str(W1))
 		print("bias1: \n" + str(bias1))
