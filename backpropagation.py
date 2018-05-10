@@ -25,8 +25,13 @@ def backward(p,t,a):
 	global W2
 	global bias1
 	global bias2
+	global aproximacion_exitosa
 
 	a_error = t - a
+
+	if a_error[0][0] == 0.0:
+		aproximacion_exitosa = True
+
 	sensibilidad_2 = -2 * derivadaPureline(a) * a_error
 	sensibilidad_1 = derivadaLogSigmoide(a1) * sensibilidad_2.dot(W2.T)	
 
@@ -56,13 +61,15 @@ while (int(num_ejercicio)<1 or int(num_ejercicio)>2):
 	while not num_ejercicio.isdigit():
 		num_ejercicio = input("\nLa entrada debe ser un número: ")
 
-	iteraciones_max = 1
+	iteraciones_max = 10000
 	
 	if int(num_ejercicio) == 1:
 		print("\n----- Ejercicio 1 -----\n")
 		p = np.array(([1]), dtype=float)
 		g = funcionAproximar(1,int(num_ejercicio))
 		t = np.array(([g]), dtype=float)
+
+		aproximacion_exitosa = False
 
 		numEntradas = 1
 		numSalidas = 1
@@ -78,8 +85,11 @@ while (int(num_ejercicio)<1 or int(num_ejercicio)>2):
 		print("Tasa de aprendizaje: "+ str(tasa_aprendizaje))
 		print("No. de neuronas en capa oculta: "+str(numOcultas))
 		print("\n")
-		for i in range(iteraciones_max):	
+		iteraciones = 0
+		while(aproximacion_exitosa !=True and iteraciones < iteraciones_max):	
 			iniciarAlgoritmo(p,t)
+			iteraciones = iteraciones + 1
+		print("No. de iteraciones para aproximacion exitosa: "+str(iteraciones))
 		print("W1: \n" + str(W1))
 		print("bias1: \n" + str(bias1))
 		print("\n")
@@ -96,6 +106,7 @@ while (int(num_ejercicio)<1 or int(num_ejercicio)>2):
 		print("Salida esperada: \n" + str(t))
 
 		print("\n----- Inciso a -----")
+		aproximacion_exitosa = False
 		numEntradas = 1
 		numSalidas = 1
 		numOcultas = 2
@@ -108,8 +119,11 @@ while (int(num_ejercicio)<1 or int(num_ejercicio)>2):
 		print("Tasa de aprendizaje: "+ str(tasa_aprendizaje))
 		print("No. de neuronas en capa oculta: "+str(numOcultas))
 		print("\n")
-		for i in range(iteraciones_max):	
+		iteraciones = 0
+		while(aproximacion_exitosa !=True and iteraciones < iteraciones_max):	
 			iniciarAlgoritmo(p,t)
+			iteraciones = iteraciones + 1
+		print("No. de iteraciones para aproximacion exitosa: "+str(iteraciones))
 		print("W1: \n" + str(W1))
 		print("bias1: \n" + str(bias1))
 		print("\n")
@@ -117,6 +131,7 @@ while (int(num_ejercicio)<1 or int(num_ejercicio)>2):
 		print("bias2: \n" + str(bias2))
 
 		print("\n----- Inciso b -----")
+		aproximacion_exitosa = False
 		numEntradas = 1
 		numSalidas = 1
 		numOcultas = 2
@@ -127,8 +142,11 @@ while (int(num_ejercicio)<1 or int(num_ejercicio)>2):
 		bias2 = [np.random.uniform(-0.5,0.5,numSalidas)]
 		print("Tasa de aprendizaje: "+ str(tasa_aprendizaje))
 		print("No. de neuronas en capa oculta: "+str(numOcultas))
-		for i in range(iteraciones_max):	
+		iteraciones = 0
+		while(aproximacion_exitosa !=True and iteraciones < iteraciones_max):	
 			iniciarAlgoritmo(p,t)
+			iteraciones = iteraciones + 1
+		print("No. de iteraciones para aproximacion exitosa: "+str(iteraciones))
 		print("W1: \n" + str(W1))
 		print("bias1: \n" + str(bias1))
 		print("\n")
@@ -136,6 +154,7 @@ while (int(num_ejercicio)<1 or int(num_ejercicio)>2):
 		print("bias2: \n" + str(bias2))
 
 		print("\n----- Inciso c -----")
+		aproximacion_exitosa = False
 		numEntradas = 1
 		numSalidas = 1
 		numOcultas = 10
@@ -147,8 +166,11 @@ while (int(num_ejercicio)<1 or int(num_ejercicio)>2):
 		print("Tasa de aprendizaje: "+ str(tasa_aprendizaje))
 		print("No. de neuronas en capa oculta: "+str(numOcultas))
 		print("\n")
-		for i in range(iteraciones_max):	
+		iteraciones = 0
+		while(aproximacion_exitosa !=True and iteraciones < iteraciones_max):	
 			iniciarAlgoritmo(p,t)
+			iteraciones = iteraciones + 1
+		print("No. de iteraciones para aproximacion exitosa: "+str(iteraciones))
 		print("W1: \n" + str(W1))
 		print("bias1: \n" + str(bias1))
 		print("\n")
